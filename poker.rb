@@ -1,4 +1,6 @@
 class Deck
+
+  attr_reader :cards
   def initialize
     values = {
       "2" => 2,
@@ -24,12 +26,36 @@ class Deck
         values2[new_key] = v
       end
     end
-    p values2
-  end
 
-  def cards
-    p @cards
+    @cards = values2
   end
 end
 
-c = Deck.new
+
+class Hand
+  def initialize
+    dealer = Deck.new.cards
+    black = []
+    white = []
+
+    counter = 0
+    dealer.keys.shuffle.each do |k|
+      if counter.even? == true
+        black << k
+      else
+        white << k
+      end
+
+      if counter == 9
+        break
+      end
+      counter += 1
+    end
+
+    p black
+    p white
+  end
+end
+
+c = Hand.new
+
