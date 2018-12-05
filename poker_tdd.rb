@@ -29,8 +29,14 @@ class TestUntitled < Test::Unit::TestCase
   end
 
   def test_for_full_house
-    black = ["2S", "2D", "4D", "4C", "4H"]
+    black = ["4S", "2D", "2H", "4C", "2H"]
     white = ["9H", "8S", "7D", "3D", "QS"]
     assert_equal :full_house, Hand.new(black, white).rank
+  end
+
+  def test_for_three_of_a_kind
+    black = ["4S", "2D", "6H", "6C", "6D"]
+    white = ["9H", "8S", "7D", "3D", "QS"]
+    assert_equal :three_of_a_kind, Hand.new(black, white).rank
   end
 end
