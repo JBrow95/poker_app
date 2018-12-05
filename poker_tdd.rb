@@ -45,4 +45,10 @@ class TestUntitled < Test::Unit::TestCase
     white = ["9H", "8S", "7D", "3D", "QS"]
     assert_equal :two_pairs, Hand.new(black, white).rank
   end
+
+  def test_for_pairs
+    black = ["2S", "2D", "6H", "4C", "TD"]
+    white = ["9H", "8S", "7D", "3D", "QS"]
+    assert_equal :pair, Hand.new(black, white).rank
+  end
 end

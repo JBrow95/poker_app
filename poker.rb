@@ -75,6 +75,7 @@ class Hand
     return :straight if straight == true
     return :three_of_a_kind if three == true
     return :two_pairs if two_pairs == true
+    return :pair if pairs == true
   end
 
   def flush
@@ -172,5 +173,17 @@ class Hand
         return true
       end
     end     
+  end
+
+  def pairs
+    results_b = []
+
+    @black.each do |i|
+      results_b << @dealer[i]
+    end
+    
+    if results_b.uniq.length == 4
+      return true
+    end
   end
 end
