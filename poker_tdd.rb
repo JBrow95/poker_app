@@ -7,7 +7,8 @@ class TestUntitled < Test::Unit::TestCase
     black = ["2H", "3H", "4H", "6H", "KH"]
     white = ["9H", "8S", "7D", "2D", "QS"]
     
-    assert_equal :flush, Hand.new(black, white).rank
+    assert_equal :flush, Hand.new(black).rank
+    assert_equal :high_card, Hand.new(white).rank
   end
 
   def test_for_straight
@@ -56,5 +57,13 @@ class TestUntitled < Test::Unit::TestCase
     black = ["2S", "5D", "6H", "4C", "TD"]
     white = ["9H", "8S", "7D", "3D", "QS"]
     assert_equal :high_card, Hand.new(black, white).rank
+  end
+
+  def test_high_card_wins
+    black = ["2S", "5D", "6H", "4C", "QD"]
+    white = ["9H", "8S", "7D", "3D", "TS"]
+    b = Hand.new(black)
+    w = Hand.new(white)
+    assert_equal -1 , b <=> w
   end
 end

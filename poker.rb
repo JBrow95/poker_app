@@ -33,11 +33,10 @@ end
 
 class Hand
   attr_accessor :black, :white
-  def initialize(black, white)
+  def initialize(hand)
     @dealer = Deck.new.cards
-    @black = black
-    @white = white
-
+    @hand = hand
+    win
     counter = 0
     # @dealer.keys.shuffle.each do |k|
     #   if counter.even? == true
@@ -54,17 +53,17 @@ class Hand
   end
 
   def ranks
-    [
-      :high_card, 
-      :pair, 
-      :two_pairs, 
-      :three_of_a_kind, 
-      :straight, 
-      :flush, 
-      :full_house, 
-      :four_of_a_kind, 
-      :straight_flush
-    ]
+    {
+      :high_card => 1, 
+      :pair => 2, 
+      :two_pairs => 3, 
+      :three_of_a_kind => 4, 
+      :straight => 5, 
+      :flush => 6, 
+      :full_house => 7, 
+      :four_of_a_kind => 8, 
+      :straight_flush => 9
+    }
   end
 
   def rank
@@ -83,7 +82,7 @@ class Hand
     results_b = []
     results_w = []
     values_b = []
-    @black.each do |i|
+    @hand.each do |i|
       results_b << i[1]
       # values_b << @dealer[i]
     end
@@ -96,7 +95,7 @@ class Hand
   def straight
     results_b = []
 
-    @black.each do |i|
+    @hand.each do |i|
       results_b << @dealer[i]
     end
     sorted = results_b.sort.reverse
@@ -115,7 +114,7 @@ class Hand
   def four
     results_b = []
 
-    @black.each do |i|
+    @hand.each do |i|
       results_b << @dealer[i]
     end
 
@@ -131,7 +130,7 @@ class Hand
   def full 
     results_b = []
 
-    @black.each do |i|
+    @hand.each do |i|
       results_b << @dealer[i]
     end
 
@@ -147,7 +146,7 @@ class Hand
   def three
     results_b = []
 
-    @black.each do |i|
+    @hand.each do |i|
       results_b << @dealer[i]
     end
 
@@ -163,7 +162,7 @@ class Hand
   def two_pairs
     results_b = []
 
-    @black.each do |i|
+    @hand.each do |i|
       results_b << @dealer[i]
     end
 
@@ -179,7 +178,7 @@ class Hand
   def pairs
     results_b = []
 
-    @black.each do |i|
+    @hand.each do |i|
       results_b << @dealer[i]
     end
     
@@ -187,4 +186,29 @@ class Hand
       return true
     end
   end
+
+  def win
+    final = ranks[rank]
+  
+  end
+
+  attr_reader :hand
+end
+
+
+
+b = ["3S", "3H", "6H", "3C", "QD"]
+w = ["9H", "9S", "7D", "3D", "QS"]
+
+black = Hand.new(b)
+white = Hand.new(w)
+print "Black's Hand: #{black.hand.join(" ")}\n"
+print "White's Hand: #{white.hand.join(" ")}\n"
+
+if (white.win <=> black.win) == 1
+  print "\nWhite Wins. - with #{white.rank}:"
+elsif (white.win <=> black.win) == 0
+  print "\nTie"
+elsif (white.win <=> black.win) == -1
+  print "\nBlack Wins. - with #{black.rank}:"
 end
