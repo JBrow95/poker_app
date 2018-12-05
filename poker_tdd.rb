@@ -21,4 +21,10 @@ class TestUntitled < Test::Unit::TestCase
     white = ["9H", "8S", "7D", "2D", "QS"]
     assert_equal :straight_flush, Hand.new(black, white).rank
   end
+
+  def test_for_four_of_a_kind
+    black = ["4S", "2S", "2D", "2C", "2H"]
+    white = ["9H", "8S", "7D", "3D", "QS"]
+    assert_equal :four_of_a_kind, Hand.new(black, white).rank
+  end
 end

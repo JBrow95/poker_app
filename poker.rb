@@ -71,7 +71,7 @@ class Hand
     return :straight_flush if straight == true && flush == true
     return :flush if flush == true
     return :straight if straight == true
-    return false if flush && straight == false
+    return :four_of_a_kind if four == true
   end
 
   def flush
@@ -97,17 +97,29 @@ class Hand
     sorted = results_b.sort.reverse
     counter = 1
     sorted.each do |v|
-      p v
       if v - 1 == sorted[counter]
         counter += 1
       end
     end
-    p counter 
 
     if counter == 5
       return true
-    else
-      return false
     end    
+  end
+
+  def four
+    results_b = []
+
+    @black.each do |i|
+      results_b << @dealer[i]
+    end
+
+    results_b = results_b.sort
+    
+    unless results_b.uniq.length != 2
+      if results_b[0] == results_b[3] || results_b[4] == results_b[1]
+        return true
+      end
+    end     
   end
 end
