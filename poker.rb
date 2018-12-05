@@ -68,14 +68,13 @@ class Hand
   end
 
   def rank
+    return :straight_flush if straight == true && flush == true
     return :flush if flush == true
     return :straight if straight == true
     return false if flush && straight == false
   end
 
   def flush
-    # results_b = ['H','H','H','H','H']
-    # results_w = ['S','S','S','S','S']
     results_b = []
     results_w = []
     values_b = []
