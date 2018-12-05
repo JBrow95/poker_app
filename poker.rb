@@ -34,7 +34,7 @@ end
 class Hand
   attr_accessor :black, :white
   def initialize(black, white)
-    # @dealer = Deck.new.cards
+    @dealer = Deck.new.cards
     @black = black
     @white = white
 
@@ -51,7 +51,6 @@ class Hand
     #   end
     #   counter += 1
     # end
-    p flush
   end
 
   def ranks
@@ -70,7 +69,8 @@ class Hand
 
   def rank
     return :flush if flush == true
-    return false if flush == false
+    return :straight if straight == true
+    return false if flush && straight == false
   end
 
   def flush
@@ -86,11 +86,29 @@ class Hand
 
     if results_b.uniq.length == 1
       return true
-    else 
-      return false
     end
   end
 
-  
-end
+  def straight
+    results_b = []
 
+    @black.each do |i|
+      results_b << @dealer[i]
+    end
+    sorted = results_b.sort.reverse
+    counter = 1
+    sorted.each do |v|
+      p v
+      if v - 1 == sorted[counter]
+        counter += 1
+      end
+    end
+    p counter 
+
+    if counter == 5
+      return true
+    else
+      return false
+    end    
+  end
+end
