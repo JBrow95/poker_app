@@ -51,4 +51,10 @@ class TestUntitled < Test::Unit::TestCase
     white = ["9H", "8S", "7D", "3D", "QS"]
     assert_equal :pair, Hand.new(black, white).rank
   end
+
+  def test_for_high_card
+    black = ["2S", "5D", "6H", "4C", "TD"]
+    white = ["9H", "8S", "7D", "3D", "QS"]
+    assert_equal :high_card, Hand.new(black, white).rank
+  end
 end

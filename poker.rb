@@ -68,14 +68,15 @@ class Hand
   end
 
   def rank
-    return :straight_flush if straight == true && flush == true
-    return :four_of_a_kind if four == true
-    return :full_house if full == true
-    return :flush if flush == true
-    return :straight if straight == true
-    return :three_of_a_kind if three == true
-    return :two_pairs if two_pairs == true
-    return :pair if pairs == true
+      return :straight_flush if straight == true && flush == true
+      return :four_of_a_kind if four == true
+      return :full_house if full == true
+      return :flush if flush == true
+      return :straight if straight == true
+      return :three_of_a_kind if three == true
+      return :two_pairs if two_pairs == true
+      return :pair if pairs == true
+      return :high_card if pairs != true
   end
 
   def flush
