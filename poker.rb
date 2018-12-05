@@ -68,10 +68,11 @@ class Hand
   end
 
   def rank
+    return :four_of_a_kind if four == true
+    return :full_house if full == true
     return :straight_flush if straight == true && flush == true
     return :flush if flush == true
     return :straight if straight == true
-    return :four_of_a_kind if four == true
   end
 
   def flush
@@ -115,9 +116,25 @@ class Hand
     end
 
     results_b = results_b.sort
-    
+
     unless results_b.uniq.length != 2
       if results_b[0] == results_b[3] || results_b[4] == results_b[1]
+        return true
+      end
+    end     
+  end
+
+  def full 
+    results_b = []
+
+    @black.each do |i|
+      results_b << @dealer[i]
+    end
+
+    results_b = results_b.sort
+
+    unless results_b.uniq.length != 2
+      if results_b[0] != results_b[3] && results_b[4] != results_b[1] 
         return true
       end
     end     
