@@ -28,28 +28,38 @@ class Deck
     end
 
     @cards = values2
+    deal()
   end
+  def deal()
+    @black = []
+    @white = []
+    counter = 0
+    @cards.keys.shuffle.each do |k|
+      if counter.even? == true
+        @black << k
+      else
+        @white << k
+      end
+
+      if counter == 9
+        break
+      end
+      counter += 1
+    end
+    @black
+    @white
+  end  
+  attr_accessor :black
+  attr_accessor :white
 end
 
 class Hand
-  attr_accessor :black, :white
-  def initialize(hand)
-    @dealer = Deck.new.cards
+  attr_accessor :hand
+  def initialize(hand, cards)
     @hand = hand
+    @dealer = cards
     win
-    counter = 0
-    # @dealer.keys.shuffle.each do |k|
-    #   if counter.even? == true
-    #     @black << k
-    #   else
-    #     @white << k
-    #   end
-
-    #   if counter == 9
-    #     break
-    #   end
-    #   counter += 1
-    # end
+    
   end
 
   def ranks
@@ -195,20 +205,27 @@ class Hand
   attr_reader :hand
 end
 
+class Start_game
+  def initialize
+    game = Deck.new
+    black = game.black
+    white = game.white
+    deck = game.cards
+    @b = Hand.new(black, deck)
+    @w = Hand.new(white, deck)
+    results()
+  end
+  def results()  
+    print "Black's Hand: #{@b.hand.join(" ")}\n"
+    print "White's Hand: #{@w.hand.join(" ")}\n"
 
-
-b = ["3S", "3H", "6H", "3C", "QD"]
-w = ["9H", "9S", "7D", "3D", "QS"]
-
-black = Hand.new(b)
-white = Hand.new(w)
-print "Black's Hand: #{black.hand.join(" ")}\n"
-print "White's Hand: #{white.hand.join(" ")}\n"
-
-if (white.win <=> black.win) == 1
-  print "\nWhite Wins. - with #{white.rank}:"
-elsif (white.win <=> black.win) == 0
-  print "\nTie"
-elsif (white.win <=> black.win) == -1
-  print "\nBlack Wins. - with #{black.rank}:"
+    if (@w.win <=> @b.win) == 1
+      print "\nWhite Wins. - with #{@w.rank}:"
+    elsif (@w.win <=> @b.win) == 0
+      print "\nTie"
+    elsif (@w.win <=> @b.win) == -1
+      print "\nBlack Wins. - with #{@b.rank}:"
+    end
+  end
 end
+Start_game.new    
