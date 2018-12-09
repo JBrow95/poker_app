@@ -76,20 +76,14 @@ class Hand
   def straight
     results_b = []
 
-    @hand.each do |i|
-      results_b << @dealer[i]
-    end
+    @hand.each { |i| results_b << @dealer[i] }
+
     sorted = results_b.sort.reverse
     counter = 1
-    sorted.each do |v|
-      if v - 1 == sorted[counter]
-        counter += 1
-      end
-    end
 
-    if counter == 5
-      return true
-    end    
+    sorted.each { |v| counter += 1 if v - 1 == sorted[counter] }
+    
+    return true if counter == 5    
   end
 
   def four
