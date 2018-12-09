@@ -24,11 +24,8 @@ class Deck
     counter = 0
 
     @cards.keys.shuffle.each do |k|
-    
-    counter.even? ? @black << k : @white << k
-  
-    counter == 9 ? break : counter += 1
-
+      counter.even? ? @black << k : @white << k
+      counter == 9 ? break : counter += 1
     end
 
     @black
@@ -89,82 +86,61 @@ class Hand
   def four
     results_b = []
 
-    @hand.each do |i|
-      results_b << @dealer[i]
-    end
-
+    @hand.each { |i| results_b << @dealer[i] }
+    
     results_b = results_b.sort
 
     unless results_b.uniq.length != 2
-      if results_b[0] == results_b[3] || results_b[4] == results_b[1]
-        return true
-      end
+      return true if results_b[0] == results_b[3] || results_b[4] == results_b[1]
     end     
   end
 
   def full 
     results_b = []
 
-    @hand.each do |i|
-      results_b << @dealer[i]
-    end
+    @hand.each { |i| results_b << @dealer[i] }
 
     results_b = results_b.sort
 
     unless results_b.uniq.length != 2
-      if results_b[0] != results_b[3] && results_b[4] != results_b[1] 
-        return true
-      end
+      return true if results_b[0] != results_b[3] && results_b[4] != results_b[1] 
     end     
   end
 
   def three
     results_b = []
 
-    @hand.each do |i|
-      results_b << @dealer[i]
-    end
+    @hand.each { |i| results_b << @dealer[i] }
 
     results_b = results_b.sort
 
     unless results_b.uniq.length != 3
-      if results_b[0] == results_b[2] || results_b[2] == results_b[4] || results_b[1] == results_b[3]
-        return true
-      end
+      return true if results_b[0] == results_b[2] || results_b[2] == results_b[4] || results_b[1] == results_b[3]
     end     
   end
 
   def two_pairs
     results_b = []
 
-    @hand.each do |i|
-      results_b << @dealer[i]
-    end
+    @hand.each { |i| results_b << @dealer[i] }
 
     results_b = results_b.sort
 
     unless results_b.uniq.length != 3
-      if results_b[0] != results_b[2] && results_b[2] != results_b[4] && results_b[1] != results_b[3]
-        return true
-      end
+      return true if results_b[0] != results_b[2] && results_b[2] != results_b[4] && results_b[1] != results_b[3]
     end     
   end
 
   def pairs
     results_b = []
 
-    @hand.each do |i|
-      results_b << @dealer[i]
-    end
+    @hand.each { |i| results_b << @dealer[i] }
     
-    if results_b.uniq.length == 4
-      return true
-    end
+    return true if results_b.uniq.length == 4
   end
 
   def win
     final = ranks[rank]
-  
   end
 
   attr_reader :hand
