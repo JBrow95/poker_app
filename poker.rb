@@ -30,34 +30,26 @@ class Deck
     counter == 9 ? break : counter += 1
 
     end
+
     @black
     @white
   end  
+
   attr_accessor :black
   attr_accessor :white
 end
 
 class Hand
   attr_accessor :hand
+
   def initialize(hand, cards)
     @hand = hand
     @dealer = cards
     win
-    
   end
 
   def ranks
-    {
-      :high_card => 1, 
-      :pair => 2, 
-      :two_pairs => 3, 
-      :three_of_a_kind => 4, 
-      :straight => 5, 
-      :flush => 6, 
-      :full_house => 7, 
-      :four_of_a_kind => 8, 
-      :straight_flush => 9
-    }
+    { :high_card => 1, :pair => 2, :two_pairs => 3, :three_of_a_kind => 4, :straight => 5, :flush => 6, :full_house => 7, :four_of_a_kind => 8, :straight_flush => 9 }
   end
 
   def rank
@@ -74,16 +66,11 @@ class Hand
 
   def flush
     results_b = []
-    results_w = []
     values_b = []
-    @hand.each do |i|
-      results_b << i[1]
-      # values_b << @dealer[i]
-    end
 
-    if results_b.uniq.length == 1
-      return true
-    end
+    @hand.each { |i| results_b << i[1] }
+
+    return true if results_b.uniq.length == 1
   end
 
   def straight
