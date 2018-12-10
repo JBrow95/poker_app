@@ -156,17 +156,15 @@ class Start_game
     @w = Hand.new(white, deck)
     results()
   end
+
   def results()  
     print "Black's Hand: #{@b.hand.join(" ")}\n"
     print "White's Hand: #{@w.hand.join(" ")}\n"
 
-    if (@w.win <=> @b.win) == 1
-      print "\nWhite Wins. - with #{@w.rank}:"
-    elsif (@w.win <=> @b.win) == 0
-      print "\nTie"
-    elsif (@w.win <=> @b.win) == -1
-      print "\nBlack Wins. - with #{@b.rank}:"
-    end
+    print "\nWhite Wins. - with #{@w.rank}:" if (@w.win <=> @b.win) == 1
+    print "\nTie" if (@w.win <=> @b.win) == 0
+    
+    print "\nBlack Wins. - with #{@b.rank}:" if (@w.win <=> @b.win) == -1
   end
 end
 Start_game.new    
